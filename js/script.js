@@ -124,12 +124,37 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Ensure music keeps playing if it gets paused
     backgroundMusic.addEventListener('pause', function() {
-        backgroundMusic.play();
+        // Only auto-resume if music was started by user
+        if (isMusicStarted) {
+            backgroundMusic.play().catch(error => {
+                console.log('Auto-resume failed:', error);
+            });
+        }
     });
     
     // Ensure music restarts if it ends
     backgroundMusic.addEventListener('ended', function() {
-        backgroundMusic.play();
+        // Only auto-restart if music was started by user
+        if (isMusicStarted) {
+            backgroundMusic.play().catch(error => {
+                console.log('Auto-restart failed:', error);
+            });
+        }
+    });
+    
+    // Handle audio loading errors
+    backgroundMusic.addEventListener('error', function(e) {
+        console.log('Audio error:', e);
+        playMusicBtn.textContent = '🔇 Audio Error - Click to Retry';
+        playMusicBtn.style.background = 'linear-gradient(45deg, #ff6b6b, #ff8e8e)';
+        isMusicStarted = false;
+    });
+    
+    // Handle audio loading
+    backgroundMusic.addEventListener('canplaythrough', function() {
+        console.log('Audio loaded successfully');
+        playMusicBtn.textContent = '🎵 Play Music 🎵';
+        playMusicBtn.style.background = 'linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3)';
     });
     
     // Initialize with random volume
