@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variable Fonts Animation</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="back-row-toggle splat-toggle">
+    <div class="rain front-row"></div>
+    <div class="rain back-row"></div>
+    
+    <div class="content-container">
+        <div class="circle" data-splitting="chars">Random Volume Slider</div>
+        
+        <div class="terrible-volume-container">
+            <h2>The Worst Volume Control Ever</h2>
+            <div class="volume-display">
+                <span id="volume-value">50</span>%
+            </div>
+            <div class="fake-slider">
+                <div class="slider-track"></div>
+                <div class="slider-thumb" id="slider-thumb"></div>
+            </div>
+            <button id="randomize-btn" class="randomize-btn">🎲 Randomize Volume! 🎲</button>
+            <div class="volume-info">
+                <p>⚠️ You can't actually slide this! ⚠️</p>
+                <p>Only the randomize button works (terribly)</p>
+            </div>
+            <audio id="background-music" loop>
+                <source src="music/F_CK SWAG.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <button id="play-music-btn" class="play-btn">🎵 Play Music 🎵</button>
+        </div>
+    </div>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
