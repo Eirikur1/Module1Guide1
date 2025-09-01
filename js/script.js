@@ -1,11 +1,23 @@
-// Custom 3D Circular Text Setup
+// ========================================
+// TERRIBLE VOLUME SLIDER WEBSITE
+// ========================================
+// This website demonstrates intentionally bad UX design
+// featuring a volume control that only works randomly
+// and music that never stops once started.
+
+// Initialize the 3D circular text effect
+// This creates the rotating "Random Volume Slider" text
 function setupCircularText() {
     const circle = document.querySelector('.circle');
     if (circle) {
+        // Get the text content and clear the element
         const text = circle.textContent || circle.innerText;
         circle.innerHTML = '';
+        
+        // Set CSS variable for number of characters
         circle.style.setProperty('--numchs', text.length);
         
+        // Create individual character elements positioned in 3D space
         for (let i = 0; i < text.length; i++) {
             const charDiv = document.createElement('div');
             charDiv.className = 'char';
@@ -16,65 +28,86 @@ function setupCircularText() {
     }
 }
 
-// Rain System Functionality
+// ========================================
+// RAIN SYSTEM FUNCTIONALITY
+// ========================================
+// Creates dynamic rain effects in the background
+// with front and back layers for depth
+
 var makeItRain = function() {
-    //clear out everything
+    // Clear existing rain elements
     $('.rain').empty();
 
     var increment = 0;
     var drops = "";
     var backDrops = "";
 
+    // Generate 100 raindrops with randomized properties
     while (increment < 100) {
-        //couple random numbers to use for various randomizations
-        //random number between 98 and 1
+        // Random number between 98 and 1 for animation timing
         var randoHundo = (Math.floor(Math.random() * (98 - 1 + 1) + 1));
-        //random number between 5 and 2
+        // Random number between 5 and 2 for positioning
         var randoFiver = (Math.floor(Math.random() * (5 - 2 + 1) + 2));
-        //increment
         increment += randoFiver;
-        //add in a new raindrop with various randomizations to certain CSS properties
+        
+        // Create front layer raindrop with stem and splash effects
         drops += '<div class="drop" style="left: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+        
+        // Create back layer raindrop (mirrored for depth)
         backDrops += '<div class="drop" style="right: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
     }
 
+    // Add raindrops to the DOM
     $('.rain.front-row').append(drops);
     $('.rain.back-row').append(backDrops);
 }
 
-// Initialize rain with both effects enabled
+// Initialize rain system when page loads
 makeItRain();
 
-// Terrible Volume Slider Functionality
+// ========================================
+// TERRIBLE VOLUME SLIDER FUNCTIONALITY
+// ========================================
+// This is intentionally bad UX design - the volume
+// can only be changed randomly, not manually
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Setup the 3D circular text
+    // Setup the 3D circular text effect
     setupCircularText();
     
+    // Get DOM elements for volume control
     const volumeValue = document.getElementById('volume-value');
     const sliderThumb = document.getElementById('slider-thumb');
     const randomizeBtn = document.getElementById('randomize-btn');
     const playMusicBtn = document.getElementById('play-music-btn');
     const backgroundMusic = document.getElementById('background-music');
     
+    // Initialize volume state
     let currentVolume = 50;
     let isMusicStarted = false;
     
-    // Randomize volume function
+    // ========================================
+    // RANDOMIZE VOLUME FUNCTION
+    // ========================================
+    // This is the ONLY way to change volume - completely random!
+    // Demonstrates terrible UX design principles
+    
     function randomizeVolume() {
-        const newVolume = Math.floor(Math.random() * 101); // 0-100
+        // Generate random volume between 0-100
+        const newVolume = Math.floor(Math.random() * 101);
         currentVolume = newVolume;
         
-        // Update display
+        // Update the volume display
         volumeValue.textContent = newVolume;
         
-        // Move fake slider thumb (completely useless!)
+        // Move the fake slider thumb (completely useless!)
         const thumbPosition = (newVolume / 100) * 100;
         sliderThumb.style.left = thumbPosition + '%';
         
-        // Update audio volume
+        // Update the actual audio volume
         backgroundMusic.volume = newVolume / 100;
         
-        // Add some terrible visual feedback
+        // Add terrible visual feedback (scaling effect)
         volumeValue.style.color = newVolume > 50 ? '#4a90e2' : '#4ecdc4';
         volumeValue.style.transform = 'scale(1.2)';
         setTimeout(() => {
@@ -82,11 +115,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 200);
     }
     
-    // Make the fake slider completely useless
+    // ========================================
+    // FAKE SLIDER INTERACTION
+    // ========================================
+    // The slider looks real but does nothing
+    // This is intentionally frustrating UX design
+    
     const fakeSlider = document.querySelector('.fake-slider');
     fakeSlider.addEventListener('click', function(e) {
         e.preventDefault();
-        // Show error message
+        // Show error message when user tries to use the slider
         volumeValue.textContent = 'Cant change it :P';
         volumeValue.style.color = '#ff0000';
         setTimeout(() => {
@@ -95,12 +133,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000);
     });
     
-    // Randomize button
+    // Connect randomize button to the randomize function
     randomizeBtn.addEventListener('click', randomizeVolume);
     
+    // ========================================
+    // MUSIC CONTROL SYSTEM
+    // ========================================
     // Music can only be started, never stopped
+    // Another example of terrible UX design
+    
     playMusicBtn.addEventListener('click', function() {
         if (!isMusicStarted) {
+            // Try to start the music
             backgroundMusic.play().then(() => {
                 // Music started successfully
                 isMusicStarted = true;
@@ -110,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 playMusicBtn.style.opacity = '0.6';
                 playMusicBtn.style.cursor = 'not-allowed';
                 
-                // Start the beat animation on the circle header
+                // Start the beat animation on the 3D circular text
                 const circle = document.querySelector('.circle');
                 if (circle) {
                     circle.classList.add('music-playing');
@@ -122,9 +166,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // If music is already playing, clicking does nothing
     });
     
-    // Ensure music keeps playing if it gets paused
+    // ========================================
+    // MUSIC PERSISTENCE SYSTEM
+    // ========================================
+    // Ensure music keeps playing no matter what
+    // This is intentionally annoying UX design
+    
+    // Auto-resume if music gets paused
     backgroundMusic.addEventListener('pause', function() {
-        // Only auto-resume if music was started by user
         if (isMusicStarted) {
             backgroundMusic.play().catch(error => {
                 console.log('Auto-resume failed:', error);
@@ -132,9 +181,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Ensure music restarts if it ends
+    // Auto-restart if music ends
     backgroundMusic.addEventListener('ended', function() {
-        // Only auto-restart if music was started by user
         if (isMusicStarted) {
             backgroundMusic.play().catch(error => {
                 console.log('Auto-restart failed:', error);
@@ -150,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
         isMusicStarted = false;
     });
     
-    // Handle audio loading
+    // Handle successful audio loading
     backgroundMusic.addEventListener('canplaythrough', function() {
         console.log('Audio loaded successfully');
         playMusicBtn.textContent = '🎵 Play Music 🎵';
@@ -160,7 +208,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize with random volume
     randomizeVolume();
     
+    // ========================================
+    // AUTOMATIC VOLUME CHANGES
+    // ========================================
     // Sometimes change volume randomly (because why not?)
+    // This adds to the terrible user experience
+    
     setInterval(() => {
         if (Math.random() < 0.1) { // 10% chance every interval
             randomizeVolume();

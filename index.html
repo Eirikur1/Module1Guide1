@@ -3,39 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Variable Fonts Animation</title>
+    <title>Terrible Volume Slider - The Worst Music Control Ever</title>
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body class="back-row-toggle splat-toggle">
+    <!-- Rain Background Effects -->
     <div class="rain front-row"></div>
     <div class="rain back-row"></div>
     
-    <div class="content-container">
-        <div class="circle" data-splitting="chars">  Random Volume Slider  </div>
-        
-        <div class="terrible-volume-container">
-            <h2>The Worst Volume Control Ever</h2>
-            <div class="volume-display">
-                <span id="volume-value">50</span>%
+    <!-- Header Section with Logo and Navigation -->
+    <header class="site-header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>🎵 Terrible Volume Slider 🎵</h1>
             </div>
-            <div class="fake-slider">
-                <div class="slider-track"></div>
-                <div class="slider-thumb" id="slider-thumb"></div>
-            </div>
-            <button id="randomize-btn" class="randomize-btn">🎲 Randomize Volume! 🎲</button>
-            <div class="volume-info">
-                <p>⚠️ You can't actually slide this! ⚠️</p>
-                <p>Only the randomize button works (terribly)</p>
-            </div>
-            <audio id="background-music" loop preload="auto">
-                <source src="Music/F_CK SWAG.mp3" type="audio/mpeg">
-                <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
-                Your browser does not support the audio element.
-            </audio>
-            <button id="play-music-btn" class="play-btn">🎵 Play Music 🎵</button>
+            <nav class="main-navigation">
+                <ul>
+                    <li><a href="#volume-control">Volume Control</a></li>
+                    <li><a href="#rain-effects">Rain Effects</a></li>
+                    <li><a href="#music-player">Music Player</a></li>
+                </ul>
+            </nav>
         </div>
-    </div>
+    </header>
+    
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Hero Section with 3D Text -->
+        <section id="hero" class="hero-section">
+            <div class="content-container">
+                <div class="circle" data-splitting="chars">Random Volume Slider</div>
+            </div>
+        </section>
+        
+        <!-- Volume Control Section -->
+        <section id="volume-control" class="volume-section">
+            <div class="terrible-volume-container">
+                <h2>The Worst Volume Control Ever</h2>
+                <div class="volume-display">
+                    <span id="volume-value">50</span>%
+                </div>
+                <div class="fake-slider">
+                    <div class="slider-track"></div>
+                    <div class="slider-thumb" id="slider-thumb"></div>
+                </div>
+                <button id="randomize-btn" class="randomize-btn">🎲 Randomize Volume! 🎲</button>
+                <div class="volume-info">
+                    <p>⚠️ You can't actually slide this! ⚠️</p>
+                    <p>Only the randomize button works (terribly)</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Music Player Section -->
+        <section id="music-player" class="music-section">
+            <div class="music-container">
+                <h3>🎵 F_CK SWAG Music Player 🎵</h3>
+                <p>Experience the most terrible music control system ever created!</p>
+                <ul class="music-features">
+                    <li>🎯 Random volume only - no manual control</li>
+                    <li>🔄 Music plays forever once started</li>
+                    <li>🎨 Rainbow animated play button</li>
+                    <li>⚡ 79 BPM synchronized animations</li>
+                </ul>
+                <audio id="background-music" loop preload="auto">
+                    <source src="Music/F_CK SWAG.mp3" type="audio/mpeg">
+                    <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio>
+                <button id="play-music-btn" class="play-btn">🎵 Play Music 🎵</button>
+            </div>
+        </section>
+        
+        <!-- Rain Effects Section -->
+        <section id="rain-effects" class="rain-section">
+            <div class="rain-info">
+                <h3>🌧️ Dynamic Rain Background</h3>
+                <p>Enjoy the atmospheric rain effects that never stop:</p>
+                <ul class="rain-features">
+                    <li>💧 Continuous rain animation</li>
+                    <li>🌊 Front and back rain layers</li>
+                    <li>💦 Splash effects on impact</li>
+                    <li>🎭 Atmospheric mood setting</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer with Contact Information -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>🎵 About This Project</h4>
+                <p>The Terrible Volume Slider is a demonstration of intentionally bad UX design, featuring a volume control that only works randomly and music that never stops.</p>
+            </div>
+            <div class="footer-section">
+                <h4>📧 Contact Information</h4>
+                <ul class="contact-list">
+                    <li>🌐 <a href="https://github.com/Eirikur1/Module1Guide1" target="_blank">GitHub Repository</a></li>
+                    <li>📱 <a href="mailto:contact@terriblevolumeslider.com">Email Us</a></li>
+                    <li>🎯 <a href="#volume-control">Try the Volume Slider</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>🚀 Features</h4>
+                <ul class="features-list">
+                    <li>3D Rotating Text</li>
+                    <li>Rain Background Effects</li>
+                    <li>Terrible Volume Control</li>
+                    <li>F_CK SWAG Music</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Terrible Volume Slider. Created for educational purposes.</p>
+        </div>
+    </footer>
     
     <script src="js/script.js"></script>
 </body>
