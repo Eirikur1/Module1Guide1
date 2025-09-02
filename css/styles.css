@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
-/* ===== RESET & BASE STYLES ===== */
 * {
     margin: 0;
     padding: 0;
@@ -21,7 +20,6 @@ body {
     line-height: 1.6;
 }
 
-/* ===== THUNDERSTORM BACKGROUND CANVAS ===== */
 #can {
     position: fixed;
     top: 0;
@@ -32,7 +30,6 @@ body {
     pointer-events: none;
 }
 
-/* ===== RAIN SYSTEM ===== */
 .rain {
     position: fixed;
     left: 0;
@@ -96,7 +93,6 @@ body {
     100% { opacity: 0; transform: scale(1.5); }
 }
 
-/* ===== HEADER ===== */
 .header {
     background: rgba(15, 15, 35, 0.95);
     backdrop-filter: blur(20px);
@@ -179,7 +175,6 @@ body {
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Navigation */
 .nav {
     display: flex;
     gap: 30px;
@@ -219,7 +214,6 @@ body {
     box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
 }
 
-/* ===== MAIN CONTENT ===== */
 .main {
     margin-top: 100px;
     min-height: calc(100vh - 100px - 100px);
@@ -231,7 +225,6 @@ body {
     padding: 0 30px;
 }
 
-/* ===== VOLUME PLAYER SECTION ===== */
 .volume-player-section {
     padding: 80px 30px;
     text-align: center;
@@ -259,7 +252,6 @@ body {
     text-shadow: 0 4px 20px rgba(74, 144, 226, 0.3);
 }
 
-/* Volume Display */
 .volume-display {
     font-size: 6rem;
     font-weight: 700;
@@ -269,7 +261,6 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
-/* Volume Slider */
 .volume-slider {
     margin-bottom: 40px;
 }
@@ -307,7 +298,6 @@ body {
     font-weight: 500;
 }
 
-/* Buttons */
 .btn {
     padding: 18px 36px;
     border: none;
@@ -363,7 +353,6 @@ body {
     box-shadow: 0 12px 35px rgba(255, 107, 107, 0.5);
 }
 
-/* Music Control */
 .music-control {
     margin-top: 30px;
     padding-top: 30px;
@@ -377,7 +366,6 @@ body {
     opacity: 0.8;
 }
 
-/* ===== FOOTER ===== */
 .footer {
     background: rgba(15, 15, 35, 0.95);
     border-top: 2px solid #4a90e2;
@@ -391,71 +379,12 @@ body {
     font-size: 0.9rem;
 }
 
-/* ===== ANIMATIONS ===== */
 @keyframes rainbow {
     0% { background-position: 0% 82%; }
     50% { background-position: 100% 19%; }
     100% { background-position: 0% 82%; }
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
-@media (max-width: 768px) {
-    .volume-player-card {
-        padding: 40px 30px;
-        margin: 0 20px;
-    }
-    
-    .volume-player-card h2 {
-        font-size: 2rem;
-    }
-    
-    .volume-display {
-        font-size: 4.5rem;
-    }
-    
-    .btn {
-        padding: 15px 30px;
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .volume-player-section {
-        padding: 60px 20px;
-    }
-    
-    .volume-player-card {
-        padding: 30px 25px;
-    }
-    
-    .volume-player-card h2 {
-        font-size: 1.8rem;
-    }
-    
-    .volume-display {
-        font-size: 3.5rem;
-    }
-    
-    .container {
-        padding: 0 20px;
-    }
-    
-    .header-container {
-        flex-direction: column;
-        gap: 20px;
-    }
-    
-    .nav {
-        gap: 20px;
-    }
-    
-    .nav a {
-        padding: 10px 20px;
-        font-size: 0.9rem;
-    }
-}
-
-/* ===== OTHER PROJECTS SECTION ===== */
 .other-projects-section {
     padding: 100px 30px;
     text-align: center;
@@ -547,7 +476,6 @@ body {
     border-bottom-color: #ff6b6b;
 }
 
-/* ===== CONTACT SECTION ===== */
 .contact-section {
     padding: 100px 30px;
     text-align: center;
@@ -683,8 +611,34 @@ body {
     box-shadow: 0 12px 35px rgba(255, 107, 107, 0.5);
 }
 
-/* ===== RESPONSIVE DESIGN FOR NEW SECTIONS ===== */
 @media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .nav {
+        gap: 20px;
+    }
+    
+    .volume-player-card {
+        padding: 40px 30px;
+        margin: 0 20px;
+    }
+    
+    .volume-player-card h2 {
+        font-size: 2rem;
+    }
+    
+    .volume-display {
+        font-size: 4.5rem;
+    }
+    
+    .btn {
+        padding: 15px 30px;
+        font-size: 1rem;
+    }
+    
     .projects-grid {
         grid-template-columns: 1fr;
         gap: 30px;
@@ -702,6 +656,31 @@ body {
 }
 
 @media (max-width: 480px) {
+    .volume-player-section {
+        padding: 60px 20px;
+    }
+    
+    .volume-player-card {
+        padding: 30px 25px;
+    }
+    
+    .volume-player-card h2 {
+        font-size: 1.8rem;
+    }
+    
+    .volume-display {
+        font-size: 3.5rem;
+    }
+    
+    .container {
+        padding: 0 20px;
+    }
+    
+    .nav a {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
     .other-projects-section,
     .contact-section {
         padding: 60px 20px;

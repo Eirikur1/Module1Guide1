@@ -1,4 +1,3 @@
-// Random Volume Player
 class RandomVolumePlayer {
     constructor() {
         this.currentVolume = 50;
@@ -7,15 +6,14 @@ class RandomVolumePlayer {
     }
 
     init() {
-        this.cacheElements();
+        this.setupElements();
         this.setupEventListeners();
         this.setupAudioListeners();
         this.initVolumeSlider();
         this.initRainEffects();
     }
 
-    // Cache DOM elements
-    cacheElements() {
+    setupElements() {
         this.elements = {
             volumeValue: document.getElementById('volume-value'),
             sliderThumb: document.getElementById('slider-thumb'),
@@ -25,7 +23,6 @@ class RandomVolumePlayer {
         };
     }
 
-    // Setup event listeners
     setupEventListeners() {
         this.elements.randomizeBtn.addEventListener('click', () => {
             this.handleRandomizeClick();
@@ -36,7 +33,6 @@ class RandomVolumePlayer {
         });
     }
 
-    // Setup audio event listeners
     setupAudioListeners() {
         this.elements.backgroundMusic.addEventListener('canplaythrough', () => {
             console.log('Audio ready to play');
@@ -46,7 +42,6 @@ class RandomVolumePlayer {
             console.error('Audio failed to load');
         });
         
-        // Stop thunderstorm when music ends
         this.elements.backgroundMusic.addEventListener('ended', () => {
             if (window.thunderstormManager) {
                 window.thunderstormManager.stopThunderstorm();
@@ -54,65 +49,55 @@ class RandomVolumePlayer {
         });
     }
 
-    // Initialize volume slider
     initVolumeSlider() {
         this.updateVolumeDisplay();
         this.updateSliderThumb();
     }
 
-    // Update volume display
     updateVolumeDisplay() {
         if (this.elements.volumeValue) {
             this.elements.volumeValue.textContent = this.currentVolume;
         }
     }
 
-    // Update slider thumb position
     updateSliderThumb() {
         if (this.elements.sliderThumb) {
-            const maxLeft = 326; // Maximum left position for slider thumb
+            const maxLeft = 326;
             const leftPosition = (this.currentVolume / 100) * maxLeft;
             this.elements.sliderThumb.style.left = leftPosition + 'px';
         }
     }
 
-    // Handle randomize button click
     handleRandomizeClick() {
         this.randomizeVolume();
     }
 
-    // Randomize volume
     randomizeVolume() {
-        this.currentVolume = Math.floor(Math.random() * 101); // 0-100
+        this.currentVolume = Math.floor(Math.random() * 101);
         this.elements.backgroundMusic.volume = this.currentVolume / 100;
         
         this.updateVolumeDisplay();
         this.updateSliderThumb();
         
-        // Add visual feedback
         this.elements.randomizeBtn.style.transform = 'scale(0.95)';
         setTimeout(() => {
             this.elements.randomizeBtn.style.transform = 'scale(1)';
         }, 150);
     }
 
-    // Initialize rain effects
     initRainEffects() {
         this.createRainDrops();
     }
 
-    // Create rain drops
     createRainDrops() {
         const frontRow = document.querySelector('.rain.front-row');
         const backRow = document.querySelector('.rain.back-row');
         
         if (!frontRow || !backRow) return;
 
-        // Clear existing drops
         frontRow.innerHTML = '';
         backRow.innerHTML = '';
 
-        // Create front row drops
         for (let i = 0; i < 100; i++) {
             const drop = this.createRainDrop();
             drop.style.left = Math.random() * 100 + '%';
@@ -121,7 +106,6 @@ class RandomVolumePlayer {
             frontRow.appendChild(drop);
         }
 
-        // Create back row drops
         for (let i = 0; i < 50; i++) {
             const drop = this.createRainDrop();
             drop.style.right = Math.random() * 100 + '%';
@@ -131,7 +115,6 @@ class RandomVolumePlayer {
         }
     }
 
-    // Create individual rain drop
     createRainDrop() {
         const drop = document.createElement('div');
         drop.className = 'drop';
@@ -148,14 +131,12 @@ class RandomVolumePlayer {
         return drop;
     }
 
-    // Handle play music button click
     handlePlayMusicClick() {
         if (!this.isMusicPlaying) {
             this.startMusic();
         }
     }
 
-    // Start music
     startMusic() {
         this.elements.backgroundMusic.volume = this.currentVolume / 100;
         this.elements.backgroundMusic.play().then(() => {
@@ -165,7 +146,6 @@ class RandomVolumePlayer {
             this.elements.playMusicBtn.style.opacity = '0.7';
             this.elements.playMusicBtn.style.cursor = 'not-allowed';
             
-            // Start the thunderstorm when music begins
             console.log('Music started, attempting to start thunderstorm...');
             if (window.thunderstormManager) {
                 console.log('Thunderstorm manager found, starting...');
@@ -179,17 +159,14 @@ class RandomVolumePlayer {
     }
 }
 
-// Thunderstorm Background Animation System
 $(function() {
     console.log('Thunderstorm system initializing...');
     
-    // Check if jQuery is loaded
     if (typeof $ === 'undefined') {
         console.error('jQuery not loaded! Thunderstorm will not work.');
         return;
     }
     
-    // Check if canvas element exists
     if (!$('#can').length) {
         console.error('Canvas element #can not found! Thunderstorm will not work.');
         return;
@@ -197,63 +174,60 @@ $(function() {
     
     console.log('jQuery loaded successfully, canvas found, starting thunderstorm system...');
     
-    // Vector class for linked list
-    var Vector = function(value) {
-        this.value = value;
-        this.prev = null;
-        this.next = null;
+    class Vector {
+        constructor(value) {
+            this.value = value;
+            this.prev = null;
+            this.next = null;
+        }
     }
 
-    // List class for managing objects
-    var List = function() {
-        var me = this;
-        var first = null;
-        var current = null;
-        var last = null;
-        this.length = 0;
+    class List {
+        constructor() {
+            this.first = null;
+            this.current = null;
+            this.last = null;
+            this.length = 0;
+        }
 
-        var unbind = function(vector) {
+        unbind(vector) {
             if (vector.prev && vector.next) {
                 vector.prev.next = vector.next;
                 vector.next.prev = vector.prev;
             } else if (vector.prev) {
                 vector.prev.next = null;
-                last = vector.prev;
+                this.last = vector.prev;
             } else if (vector.next) {
                 vector.next.prev = null;
-                first = vector.next;
+                this.first = vector.next;
             }
 
-            if (first && current === vector) {
-                current = first;
+            if (this.first && this.current === vector) {
+                this.current = this.first;
             }
 
-            me.length--;
+            this.length--;
         }
 
-        var remove = function(vector, range) {
+        remove(value, range) {
             if (range && (range > 1 || range < -1)) {
-                var rcb = getRangeCb(range);
-                var current = vector;
+                const rcb = this.getRangeCb(range);
+                let current = value;
 
                 do {
-                    unbind(current);
+                    this.unbind(current);
                 } while (current = rcb(current))
             } else {
-                unbind(vector);
+                this.unbind(value);
             }
         }
 
-        var getRangeCb = function(range) {
-            var stepMax = Math.abs(range);
-            var step = 1;
-            var key = 'prev';
+        getRangeCb(range) {
+            const stepMax = Math.abs(range);
+            let step = 1;
+            const key = range > 1 ? 'next' : 'prev';
 
-            if (range > 1) {
-                key = 'next';
-            }
-
-            return function(current) {
+            return (current) => {
                 if (step < stepMax && current[key]) {
                     step++;
                     return current[key];
@@ -262,192 +236,167 @@ $(function() {
             }
         }
 
-        var each = function(cb) {
-            if (first) {
-                var debugCurrent = first;
+        each(cb) {
+            if (this.first) {
+                let current = this.first;
 
                 do {
-                    current = debugCurrent;
-                    if (cb(debugCurrent) === false) {
+                    this.current = current;
+                    if (cb(current) === false) {
                         break;
                     }
-                } while (debugCurrent = debugCurrent.next)
+                } while (current = current.next)
             }
             return this;
         }
 
-        this.each = function(cb) {
-            each(function(vector) {
-                cb.call(vector, vector.value);
-            });
-            return this;
-        }
+        add(value) {
+            const vector = new Vector(value);
 
-        this.add = function(value) {
-            var vector = new Vector(value);
-
-            if (!first) {
-                first = last = current = vector;
+            if (!this.first) {
+                this.first = this.last = this.current = vector;
             } else {
-                vector.prev = last;
-                last = last.next = vector;
+                vector.prev = this.last;
+                this.last = this.last.next = vector;
             }
 
             this.length++;
             return this;
         }
-
-        this.remove = function(value, range) {
-            if (current === value) {
-                remove(current, range);
-            } else {
-                each(function(vector) {
-                    if (vector.value === value) {
-                        remove(vector, range);
-                        return false;
-                    }
-                });
-            }
-            return this;
-        }
     }
 
-    // Branch class for lightning
-    var Branch = function(manager, chance, x, y) {
-        var me = this;
-        var path = [{
-            x: x,
-            y: y,
-            endX: (0.5 - Math.random()) * (manager.h / 10) + x,
-            endY: (0.7 - Math.random()) * (manager.w / 20) + y
-        }];
+    class Branch {
+        constructor(manager, chance, x, y) {
+            this.manager = manager;
+            this.chance = chance;
+            this.path = [{
+                x: x,
+                y: y,
+                endX: (0.5 - Math.random()) * (manager.h / 10) + x,
+                endY: (0.7 - Math.random()) * (manager.w / 20) + y
+            }];
 
-        var size = parseInt(chance) + parseInt(Math.random() * 10);
-        var subBranches = [];
+            this.size = parseInt(chance) + parseInt(Math.random() * 10);
+            this.subBranches = [];
+        }
 
-        this.process = function() {
-            var rdy = true;
+        process() {
+            let ready = true;
 
-            if (path.length < size) {
-                for (var i = 0; i < 3; i++) {
-                    path.push({
-                        x: path[path.length - 1].endX,
-                        y: path[path.length - 1].endY,
-                        endX: (0.5 - Math.random()) * (manager.h / 10) + path[path.length - 1].endX,
-                        endY: Math.random() * (manager.w / 30) + path[path.length - 1].endY
+            if (this.path.length < this.size) {
+                for (let i = 0; i < 3; i++) {
+                    this.path.push({
+                        x: this.path[this.path.length - 1].endX,
+                        y: this.path[this.path.length - 1].endY,
+                        endX: (0.5 - Math.random()) * (this.manager.h / 10) + this.path[this.path.length - 1].endX,
+                        endY: Math.random() * (this.manager.w / 30) + this.path[this.path.length - 1].endY
                     });
 
-                    if (Math.random() < chance / 10) {
-                        subBranches.push(new Branch(manager, chance / 2, path[path.length - 1].x, path[path.length - 1].y));
+                    if (Math.random() < this.chance / 10) {
+                        this.subBranches.push(new Branch(this.manager, this.chance / 2, this.path[this.path.length - 1].x, this.path[this.path.length - 1].y));
                     }
                 }
-                rdy = false;
+                ready = false;
             }
 
-            for (var i = 0; i < path.length; i++) {
-                manager.can.beginPath();
-                manager.can.lineWidth = chance * 0.2;
-                manager.can.moveTo(path[i].x, path[i].y);
-                manager.can.lineTo(path[i].endX, path[i].endY);
-                manager.can.stroke();
-                manager.can.closePath();
+            for (let i = 0; i < this.path.length; i++) {
+                this.manager.can.beginPath();
+                this.manager.can.lineWidth = this.chance * 0.2;
+                this.manager.can.moveTo(this.path[i].x, this.path[i].y);
+                this.manager.can.lineTo(this.path[i].endX, this.path[i].endY);
+                this.manager.can.stroke();
+                this.manager.can.closePath();
             }
 
-            for (var i = 0; i < subBranches.length; i++) {
-                subBranches[i].process();
+            for (let i = 0; i < this.subBranches.length; i++) {
+                this.subBranches[i].process();
             }
 
-            return rdy;
+            return ready;
         }
     }
 
-    // Bolt class for lightning bolts
-    var Bolt = function(manager) {
-        var me = this;
-        var opa = 1;
-        var opaDown = 0.1 - (Math.random() / 15);
-        var mainBranch = new Branch(manager, 5, Math.random() * manager.w, -50);
+    class Bolt {
+        constructor(manager) {
+            this.manager = manager;
+            this.opacity = 1;
+            this.opacityDown = 0.1 - (Math.random() / 15);
+            this.mainBranch = new Branch(manager, 5, Math.random() * manager.w, -50);
+        }
 
-        this.process = function() {
-            manager.can.strokeStyle = 'rgba(255, 255, 255, ' + opa + ')';
-            manager.can.fillStyle = manager.can.strokeStyle;
+        process() {
+            this.manager.can.strokeStyle = `rgba(255, 255, 255, ${this.opacity})`;
+            this.manager.can.fillStyle = this.manager.can.strokeStyle;
 
-            if (mainBranch.process()) {
-                opa -= opaDown;
+            if (this.mainBranch.process()) {
+                this.opacity -= this.opacityDown;
             }
 
-            return opa > 0;
+            return this.opacity > 0;
         }
     }
 
-    // BoltManager class for managing the animation
-    var BoltManager = function() {
-        var bgColor = 'rgba(15, 15, 35, 0.1)'; // Very transparent to not interfere with content
-        var me = this;
-        var rainList = new List();
-        var isActive = false; // Control flag for thunderstorm
+    class BoltManager {
+        constructor() {
+            this.bgColor = 'rgba(15, 15, 35, 0.1)';
+            this.isActive = false;
+            this.rainList = new List();
+            this.bolts = new List();
 
-        this.$can = $('#can');
-        this.can = this.$can.get(0).getContext('2d');
+            this.$can = $('#can');
+            this.can = this.$can.get(0).getContext('2d');
+            this.w = window.innerWidth;
+            this.h = window.innerHeight;
+        }
 
-        this.w = window.innerWidth;
-        this.h = window.innerHeight;
-
-        var bolts = new List();
-
-        // Method to start the thunderstorm
-        this.startThunderstorm = function() {
+        startThunderstorm() {
             console.log('Starting thunderstorm...');
-            isActive = true;
-            // Clear the canvas and start the animation
-            clear();
-            run();
+            this.isActive = true;
+            this.clear();
+            this.run();
         }
 
-        // Method to stop the thunderstorm
-        this.stopThunderstorm = function() {
+        stopThunderstorm() {
             console.log('Stopping thunderstorm...');
-            isActive = false;
-            // Clear the canvas
-            clear();
+            this.isActive = false;
+            this.clear();
         }
 
-        this.run = function() {
-            init();
-            // Don't start running immediately - wait for startThunderstorm to be called
+        run() {
+            this.init();
         }
 
-        var run = function() {
-            if (!isActive) return; // Only run if thunderstorm is active
+        startAnimation() {
+            if (!this.isActive) return;
             
-            clear();
+            this.clear();
 
             if (Math.random() < 0.05) {
-                bolts.add(new Bolt(me));
-                var ranColor = parseInt(Math.random() * 10);
-                bgColor = 'rgba(' + ranColor + ',' + ranColor + ',' + (ranColor + 30) + ', 0.1)';
+                this.bolts.add(new Bolt(this));
+                const ranColor = parseInt(Math.random() * 10);
+                this.bgColor = `rgba(${ranColor}, ${ranColor}, ${ranColor + 30}, 0.1)`;
             }
 
-            bolts.each(function(bolt) {
+            this.bolts.each((bolt) => {
                 if (!bolt.process()) {
-                    bolts.remove(this);
+                    this.bolts.remove(bolt);
                 }
             });
 
-            rain();
+            this.rain();
 
-            setTimeout(run, 1000 / 30);
+            setTimeout(() => this.startAnimation(), 1000 / 30);
         }
 
-        var rain = function() {
-            if (!isActive) return; // Only rain if thunderstorm is active
+        rain() {
+            if (!this.isActive) return;
             
-            for (var i = 0; i < 5; i++) {
-                var speed = Math.random() * 10;
-                var color = 'rgba(' + parseInt(150 - speed * 8) + ',' + parseInt(150 - speed * 8) + ',' + parseInt(150 - speed * 8) + ', 0.3)';
+            for (let i = 0; i < 5; i++) {
+                const speed = Math.random() * 10;
+                const color = `rgba(${parseInt(150 - speed * 8)}, ${parseInt(150 - speed * 8)}, ${parseInt(150 - speed * 8)}, 0.3)`;
 
-                rainList.add({
-                    x: Math.random() * me.w,
+                this.rainList.add({
+                    x: Math.random() * this.w,
                     y: -50,
                     speed: speed,
                     color: color,
@@ -455,52 +404,49 @@ $(function() {
                 });
             }
 
-            me.can.lineWidth = 1;
+            this.can.lineWidth = 1;
 
-            rainList.each(function(rain) {
+            this.rainList.each((rain) => {
                 rain.y += 15 + rain.speed;
 
-                if (rain.y > me.h + 10) {
-                    rainList.remove(this);
+                if (rain.y > this.h + 10) {
+                    this.rainList.remove(rain);
                 } else {
-                    me.can.strokeStyle = rain.color;
-                    me.can.beginPath();
-                    me.can.moveTo(rain.x, rain.y);
-                    me.can.lineTo(rain.x, rain.y + rain.size);
-                    me.can.stroke();
+                    this.can.strokeStyle = rain.color;
+                    this.can.beginPath();
+                    this.can.moveTo(rain.x, rain.y);
+                    this.can.lineTo(rain.x, rain.y + rain.size);
+                    this.can.stroke();
                 }
             });
         }
 
-        var init = function() {
-            me.$can.prop({
-                width: me.w,
-                height: me.h
+        init() {
+            this.$can.prop({
+                width: this.w,
+                height: this.h
             }).css({
-                width: me.w,
-                height: me.h
+                width: this.w,
+                height: this.h
             });
 
-            clear();
+            this.clear();
         }
 
-        var clear = function() {
-            me.can.fillStyle = bgColor;
-            me.can.fillRect(0, 0, me.w, me.h);
+        clear() {
+            this.can.fillStyle = this.bgColor;
+            this.can.fillRect(0, 0, this.w, this.h);
         }
     }
 
-    // Initialize the thunderstorm manager (but don't start it yet)
-    var thunderstormManager = new BoltManager();
+    const thunderstormManager = new BoltManager();
     thunderstormManager.run();
-
-    // Make the thunderstorm manager globally accessible so the music player can control it
-    window.thunderstormManager = thunderstormManager;
     
     console.log('Thunderstorm manager created and ready:', thunderstormManager);
     console.log('Canvas dimensions:', thunderstormManager.w, 'x', thunderstormManager.h);
 
-    // Handle window resize
+    window.thunderstormManager = thunderstormManager;
+
     $(window).on('resize', function() {
         thunderstormManager.w = window.innerWidth;
         thunderstormManager.h = window.innerHeight;
@@ -514,12 +460,10 @@ $(function() {
     });
 });
 
-// Initialize the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new RandomVolumePlayer();
 });
 
-// Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('.nav a[href^="#"]');
     

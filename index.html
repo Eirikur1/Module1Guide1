@@ -7,28 +7,22 @@
     <meta name="description" content="A volume player that randomizes volume when you press the button">
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- jQuery for thunderstorm animation -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        // Fallback if CDN fails
         if (typeof jQuery === 'undefined') {
             document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"><\/script>');
         }
     </script>
 </head>
 <body>
-    <!-- Thunderstorm Background Canvas -->
     <canvas id="can"></canvas>
     
-    <!-- Thunder Effect Canvases (hidden by default) -->
     <canvas id="canvas1"></canvas>
     <canvas id="canvas2"></canvas>
     <canvas id="canvas3"></canvas>
     
-    <!-- Beat-Synchronized Flashing Light -->
     <div id="beat-light" class="beat-light"></div>
     
-    <!-- Header -->
     <header class="header">
         <div class="header-container">
             <div class="logo">
@@ -43,20 +37,16 @@
         </div>
     </header>
     
-    <!-- Main Content -->
     <main class="main">
-        <!-- Volume Player Section -->
         <section id="volume-player" class="volume-player-section">
             <div class="container">
                 <div class="volume-player-card">
                     <h2>🎵 Volume Player</h2>
                     
-                    <!-- Volume Display -->
                     <div class="volume-display">
                         <span id="volume-value">50</span>%
                     </div>
                     
-                    <!-- Volume Slider -->
                     <div class="volume-slider">
                         <div class="slider-track">
                             <div class="slider-thumb" id="slider-thumb"></div>
@@ -67,17 +57,14 @@
                         </div>
                     </div>
                     
-                    <!-- Randomize Button -->
                     <button id="randomize-btn" class="btn btn-randomize">🎲 Randomize Volume! 🎲</button>
                     
-                    <!-- Music Control -->
                     <div class="music-control">
                         <button id="play-music-btn" class="btn btn-play">🎵 Start Music 🎵</button>
                         <p class="music-info">Once started, the music plays forever!</p>
                     </div>
                 </div>
                 
-                <!-- Audio Element -->
                 <audio id="background-music" loop preload="auto">
                     <source src="Music/Deftones Minerva.mp3" type="audio/mpeg">
                     <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
@@ -86,7 +73,6 @@
             </div>
         </section>
         
-        <!-- Other Projects Section -->
         <section id="other-projects" class="other-projects-section">
             <div class="container">
                 <h2>🚀 Other Projects</h2>
@@ -115,7 +101,6 @@
             </div>
         </section>
         
-        <!-- Contact Section -->
         <section id="contact" class="contact-section">
             <div class="container">
                 <h2>📞 Contact</h2>
@@ -153,7 +138,6 @@
         </section>
     </main>
     
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <p>&copy; 2025 Random Volume Player - Created by Eirikur Karlsson</p>
