@@ -7,8 +7,13 @@
     <meta name="description" content="A volume player that randomizes volume when you press the button">
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- jQuery for thunderstorm animation -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+    <!-- Thunderstorm Background Canvas -->
+    <canvas id="can"></canvas>
+    
     <!-- Thunder Effect Canvases (hidden by default) -->
     <canvas id="canvas1"></canvas>
     <canvas id="canvas2"></canvas>
@@ -68,7 +73,7 @@
                 
                 <!-- Audio Element -->
                 <audio id="background-music" loop preload="auto">
-                    <source src="Music/F_CK SWAG.mp3" type="audio/mpeg">
+                    <source src="Music/Deftones Minerva.mp3" type="audio/mpeg">
                     <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
                     Your browser does not support the audio element.
                 </audio>
