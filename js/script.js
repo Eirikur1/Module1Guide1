@@ -166,8 +166,12 @@ class RandomVolumePlayer {
             this.elements.playMusicBtn.style.cursor = 'not-allowed';
             
             // Start the thunderstorm when music begins
+            console.log('Music started, attempting to start thunderstorm...');
             if (window.thunderstormManager) {
+                console.log('Thunderstorm manager found, starting...');
                 window.thunderstormManager.startThunderstorm();
+            } else {
+                console.error('Thunderstorm manager not found!');
             }
         }).catch(error => {
             console.error('Failed to play music:', error);
@@ -177,6 +181,22 @@ class RandomVolumePlayer {
 
 // Thunderstorm Background Animation System
 $(function() {
+    console.log('Thunderstorm system initializing...');
+    
+    // Check if jQuery is loaded
+    if (typeof $ === 'undefined') {
+        console.error('jQuery not loaded! Thunderstorm will not work.');
+        return;
+    }
+    
+    // Check if canvas element exists
+    if (!$('#can').length) {
+        console.error('Canvas element #can not found! Thunderstorm will not work.');
+        return;
+    }
+    
+    console.log('jQuery loaded successfully, canvas found, starting thunderstorm system...');
+    
     // Vector class for linked list
     var Vector = function(value) {
         this.value = value;
@@ -377,6 +397,7 @@ $(function() {
 
         // Method to start the thunderstorm
         this.startThunderstorm = function() {
+            console.log('Starting thunderstorm...');
             isActive = true;
             // Clear the canvas and start the animation
             clear();
@@ -385,6 +406,7 @@ $(function() {
 
         // Method to stop the thunderstorm
         this.stopThunderstorm = function() {
+            console.log('Stopping thunderstorm...');
             isActive = false;
             // Clear the canvas
             clear();
@@ -474,6 +496,9 @@ $(function() {
 
     // Make the thunderstorm manager globally accessible so the music player can control it
     window.thunderstormManager = thunderstormManager;
+    
+    console.log('Thunderstorm manager created and ready:', thunderstormManager);
+    console.log('Canvas dimensions:', thunderstormManager.w, 'x', thunderstormManager.h);
 
     // Handle window resize
     $(window).on('resize', function() {
